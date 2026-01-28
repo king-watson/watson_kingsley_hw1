@@ -85,8 +85,8 @@ Motion Designer • Graphic Designer • Visual Creative
 I’m a creative student with a focus on digital design, motion graphics, and interactive development.  
 My work blends visual clarity with strong storytelling, whether through 3D, branding, or web experiences.
 
-This portfolio represents my ongoing journey as I prepare to enter the industry.  
-It reflects my design thinking, technical execution, and personal creative direction.
+This project demonstrates my understanding of API-driven development, asynchronous JavaScript, responsive design, and clean GitHub workflows.
+It reflects my ability to transform raw data into a functional, interactive user experience.
 
 ### Skills & Tools
 - Cinema 4D  
