@@ -11,27 +11,44 @@
     <link href="css/main.css" rel="stylesheet">
     <script defer src="js/main.js"></script>
   </head>
-  <body>
+  <header class="main-header">
     <div class="grid-con">
-    <section class="col-span-full m-col-span-6">
-      <h2>Movies</h2>
-      <div id="movie-box">
-        <!-- dynamically generated list goes here-->
-      </div>
+        <section class="logo-container col-span-full">
+            <img src="images/sw-logo.svg" alt="Star Wars Logo" class="logo">
+        </section>
+    </div>
+</header>
+ <div class="grid-con">
+    <section id="character-section" class="col-span-full m-col-span-5">
+        <h2 class="section-title">Star Wars Characters</h2>
+        <div id="loader" class="hidden">Loading...</div>
+        <div id="character-box">
+            </div>
     </section>
-    <div class="col-span-full m-col-span-6" id="review-box">
-      <h2>Review</h2>
-      <section id="review-con">
-        <!-- template inserted here -->
-      </section>
-      <template id="review-template">
-        <div>
-          <h3 class="review-heading"></h3>
-          <p class="review-rating"></p>
-          <p class="review-description"></p>
+
+    <section id="movie-info-box" class="col-span-full m-col-span-7">
+        <h2 class="section-title">Movie Guide</h2>
+        <div id="movie-con">
+            <p class="placeholder-text">Select a character to view movie details.</p>
         </div>
-      </template>
+    </section>
+</div>
+
+<template id="movie-template">
+    <div class="movie-card">
+        <div class="movie-header">
+            <h3 class="movie-title"></h3>
+        </div>
+        <div class="movie-body">
+            <div class="poster-con">
+                <img src="" alt="Movie Poster" class="movie-poster">
+            </div>
+            <div class="crawl-con">
+                <p class="movie-crawl"></p>
+            </div>
+        </div>
     </div>
-    </div>
+</template>
+</div>
   </body>
 </html>
