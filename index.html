@@ -1,54 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>STAR WARS API</title>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>STAR WARS API</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap" rel="stylesheet">
     <link href="css/grid.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
+    
     <script defer src="js/main.js"></script>
-  </head>
-  <header class="main-header">
-    <div class="grid-con">
-        <section class="logo-container col-span-full">
-            <img src="images/sw-logo.svg" alt="Star Wars Logo" class="logo">
+</head>
+<body> <header class="main-header">
+        <div class="grid-con">
+            <section class="logo-container col-span-full">
+                <img src="images/sw-logo.svg" alt="Star Wars Logo" class="logo">
+            </section>
+        </div>
+    </header>
+
+    <main class="grid-con"> <section id="character-section" class="col-span-full m-col-span-5">
+            <div id="loader" class="hidden">Loading...</div>
+            <div id="character-box">
+                </div>
         </section>
-    </div>
-</header>
- <div class="grid-con">
-    <section id="character-section" class="col-span-full m-col-span-5">
-        <h2 class="section-title">Star Wars Characters</h2>
-        <div id="loader" class="hidden">Loading...</div>
-        <div id="character-box">
-            </div>
-    </section>
 
-    <section id="movie-info-box" class="col-span-full m-col-span-7">
-        <h2 class="section-title">Movie Guide</h2>
-        <div id="movie-con">
-            <p class="placeholder-text">Select a character to view movie details.</p>
-        </div>
-    </section>
-</div>
+        <section id="movie-info-box" class="col-span-full m-col-span-7">
+            <div id="movie-con">
+                <p class="placeholder-text">Select a character to view movie details.</p>
+            </div>
+        </section>
+    </main>
 
-<template id="movie-template">
-    <div class="movie-card">
-        <div class="movie-header">
-            <h3 class="movie-title"></h3>
+    <footer class="site-footer">
+        <div class="grid-con">
+            <hr class="footer-line col-span-full">
+            <div class="footer-content col-span-full">
+                <p>&copy; 2026 Star Wars API. Data provided by SWAPI.</p>
+                <p class="assignment-note">Created by <strong>Kingsley</strong> for a school assignment.</p>
+            </div>   <hr class="footer-line col-span-full">
         </div>
-        <div class="movie-body">
-            <div class="poster-con">
-                <img src="" alt="Movie Poster" class="movie-poster">
+    </footer>
+
+    <template id="movie-template">
+        <div class="movie-card">
+            <div class="movie-header">
+                <h3 class="movie-title"></h3>
             </div>
-            <div class="crawl-con">
-                <p class="movie-crawl"></p>
+            <div class="movie-body">
+                <div class="poster-con">
+                    <img src="" alt="Movie Poster" class="movie-poster">
+                </div>
+                <div class="crawl-con">
+                    <p class="movie-crawl"></p>
+                </div>
             </div>
         </div>
-    </div>
-</template>
-</div>
-  </body>
+    </template>
+
+</body>
 </html>

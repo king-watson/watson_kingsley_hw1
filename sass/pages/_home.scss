@@ -21,10 +21,37 @@ html {
     display: block;
 }
 
+body {
+    /* 1. Replace 'stars.jpg' with your actual image path */
+    background-image: url('/images/starwars-backgroun.jpg'); 
+
+    /* 2. This keeps the image from repeating like a pattern */
+    background-repeat: no-repeat;
+
+    /* 3. This ensures the image covers the entire screen */
+    background-size: cover;
+
+    /* 4. This keeps the background fixed so it doesn't move when you scroll */
+    background-attachment: fixed;
+
+    /* 5. Centers the image */
+    background-position: center;
+
+    /* 6. Fallback color in case the image doesn't load */
+    background-color: #000; 
+
+    /* Optional: ensures text is readable on dark backgrounds */
+    color: white;
+}
+
 @media screen and (max-width: 712px) {
     .logo {
         max-width: 165px; 
     }
+}
+
+#character-section {
+    margin-top: 65px;
 }
 
 #character-box ul {
@@ -79,4 +106,35 @@ html {
 
 .movie-title {
     color: white;
+}
+
+#movie-info-box {
+    color: #fff;
+    margin-top: 65px;
+}
+
+.site-footer {
+    padding: 40px 0;
+    margin-top: 50px;
+    text-align: center;
+    background-color: #000;
+}
+
+.footer-line {
+    display: block;      /* Ensures it behaves like a block element */
+    border: none;        /* Remove default browser styling */
+    border-top: 2px solid yellow; /* Specifically set the thickness and color */
+    width: 100%;         /* Make sure it spans the container */
+    margin-bottom: 60px;      /* Add space above and below so it's visible */
+}
+
+.footer-content p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: white;
+    margin: 5px 0;
+}
+
+.assignment-note {
+    font-style: italic;
 }
