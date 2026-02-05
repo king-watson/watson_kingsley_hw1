@@ -1,80 +1,82 @@
 (() => {
-    // Routes
-    // Search for movie
-    // One Movie by ID
-    // https://www.omdbapi.com/?s=speed&apikey=9b104672
+    const charBox = document.querySelector("#character-box");
+    const movieTemplate = document.querySelector("#movie-template");
+    const movieCon = document.querySelector("#movie-con");
+    const loader = document.querySelector("#loader");
+    
+    // SWAPI Base URL
+    const baseUrl = 'https://swapi.info/api';
 
-    // one movie by id 
-    // https://www.omdbapi.com/?i=tt0462448&apikey=9b104672
+    function showLoading() { loader.classList.remove('hidden'); }
+    function hideLoading() { loader.classList.add('hidden'); }
 
-    const movieBox = document.querySelector("#movie-box");
-    const reviewTemplate = document.querySelector("#review-template");
-    const reviewCon = document.querySelector("#review-con");
-    const baseUrl = 'https://www.omdbapi.com/';
-    const apiKey = 'apikey=9b104672';
+    function getCharacters() {
+        showLoading();
+        fetch(`${baseUrl}/people`)
+            .then(response => response.json())
+            .then(characters => {
+                const ul = document.createElement("ul");
 
-    function getMovies() {
-        fetch(`${baseUrl}?s=speed&${apiKey}`)
-        .then(response => response.json())
-        .then(function(response) {
-            console.log(response.Search);
-            const movies = response.Search;
+            
+                characters.slice(0, 10).forEach(char => {
+                    const li = document.createElement("li");
+                    const a = document.createElement("a");
+                    
+                    a.textContent = char.name;
+                    a.dataset.movieUrl = char.films[0]; 
+                    a.href = "#";
 
-            const ul = document.createElement("ul");
-
-             movies.forEach(movie => {
-                const li = document.createElement("li");
-                const a = document.createElement("a");
-                const img = document.createElement("img");
-                a.textContent = movie.Title;
-                a.dataset.review = movie.imdbID;
-                img.src = movie.Poster;
-                li.appendChild(img);
-                li.appendChild(a);
-                ul.appendChild(li);
-              })
-              movieBox.appendChild(ul);
-        })
-        .then(function(){
-            const links = document.querySelectorAll("#movie-box li a");
-            console.log(links);
-            links.forEach(function(link){
-                link.addEventListener("click", getReview);
+                    a.addEventListener("click", getMovieDetail);
+                    
+                    li.appendChild(a);
+                    ul.appendChild(li);
+                });
+                charBox.appendChild(ul);
+                hideLoading();
             })
-        })
-        .catch(function(err){
-            // works for me as a dev
-            console.log(err);
-            // we should write a meaningful message to the DOM
-        });
+            .catch(err => {
+                hideLoading();
+                handleError("Failed to load characters.");
+            });
     }
 
-     // https://www.omdbapi.com/?i=tt0462448&apikey=9b104672
+    function getMovieDetail(e) {
+        e.preventDefault();
+        const movieUrl = e.currentTarget.dataset.movieUrl;
+        
+        showLoading();
+        movieCon.innerHTML = ""; 
 
-    function getReview(e) {
-       console.log(e.currentTarget.dataset.review);
-       const reviewID = e.currentTarget.dataset.review;
-       fetch(`${baseUrl}?i=${reviewID}&plot=full&${apiKey}`)
-       .then(response => response.json())
-       .then(function(response){
-        reviewCon.innerHTML = "";
-        console.log(response);
-        const clone = reviewTemplate.content.cloneNode(true);
-        const reviewDescription = clone.querySelector(".review-description");
-        const reviewHeading = clone.querySelector(".review-heading");
-        const reviewRating = clone.querySelector(".review-rating");
+        fetch(movieUrl)
+            .then(response => response.json())
+            .then(movie => {
+                const clone = movieTemplate.content.cloneNode(true);
+                
+                clone.querySelector(".movie-title").textContent = movie.title;
+                clone.querySelector(".movie-crawl").textContent = movie.opening_crawl;
+                
+                const poster = clone.querySelector(".movie-poster");
+                const movieID = movie.url.split('/').filter(Boolean).pop(); 
+                poster.src = `images/poster_${movieID}.jpg`; 
 
-        reviewDescription.innerHTML = response.Plot;
-        reviewHeading.innerHTML = response.Title;
-        reviewRating.innerHTML = `Rating: ${response.imdbRating}`;
+                movieCon.appendChild(clone);
 
-        reviewCon.appendChild(clone);
-
-       })
-       .catch(function(error){
-        console.log(error);
-       })
+                // ADD GSAP ANIMATION HERE
+                // gsap.from(".movie-card", { opacity: 0, y: 20, duration: 0.5 });
+                
+                hideLoading();
+            })
+            .catch(err => {
+                hideLoading();
+                handleError("Could not retrieve movie details.");
+            });
     }
-    getMovies();
 
+    function handleError(msg) {
+        const errorMsg = document.createElement("p");
+        errorMsg.textContent = msg;
+        movieCon.appendChild(errorMsg);
+    }
+
+    getCharacters();
 })();
