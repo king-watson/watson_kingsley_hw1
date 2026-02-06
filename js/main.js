@@ -29,7 +29,7 @@
         .then(function(response) {
             return response.json();
         })
-        .then(function(data) {
+        .then(function displayPeople(data) {
             hideLoading();
 
             const charList = Array.isArray(data) ? data : data.results;
@@ -73,7 +73,7 @@
                 link.addEventListener("click", getMovie);
             });
         })
-        .catch(function(error) {
+        .catch(function characterError(error) {
             hideLoading();
             console.log("Character error:", error);
         });
@@ -90,7 +90,7 @@
         .then(function(response) {
             return response.json();
         })
-        .then(function(movie) {
+        .then(function displayMovieInfo(movie) {
             hideLoading();
 
             movieCon.innerHTML = "";
@@ -119,7 +119,7 @@
 
         })
 
-        .catch(function(error) {
+        .catch(function movieError(error) {
             hideLoading();
             console.log("Movie error:", error);
         });
