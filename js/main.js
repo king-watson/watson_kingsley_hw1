@@ -14,10 +14,12 @@
 
     function showLoading() {
         loader.classList.remove("hidden");
+        charBox.classList.add("hidden");
     }
 
     function hideLoading() {
         loader.classList.add("hidden");
+        charBox.classList.remove("hidden");
     }
 
     function getCharacters() {
