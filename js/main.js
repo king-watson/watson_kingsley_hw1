@@ -57,6 +57,15 @@
             }
 
             charBox.appendChild(ul);
+
+             gsap.from("#character-box li", {
+                duration: 0.5,
+                opacity: 0,
+                x: -50,
+                stagger: 0.05, 
+                ease: "power2.out"
+            });
+
         })
         .then(function() {
             const links = document.querySelectorAll("#character-box li a");
@@ -96,6 +105,18 @@
             poster.src = `images/poster${movie.episode_id}.jpg`;
             poster.alt = `Poster for ${movie.title}`;
             movieCon.appendChild(clone);
+
+            const movieElements = document.querySelectorAll(".movie-card, .movie-title, .movie-poster, .movie-crawl");
+
+            gsap.from(movieElements, {
+            duration: 0.5,
+            opacity: 0,
+            y: 30,        
+            stagger: 0.1,   
+            ease: "power2.out" 
+});
+
+
         })
 
         .catch(function(error) {
@@ -103,6 +124,21 @@
             console.log("Movie error:", error);
         });
     }
+
+gsap.from(".placeholder-text", {
+    duration: 0.5,
+    opacity: 0,
+    y: -20,
+    ease: "power2.out",
+    delay: 0.4 
+});
+
+gsap.from(".logo", {
+    duration: 1,
+    opacity: 0,
+    y: 0, 
+    ease: "power2.out"
+});
 
     getCharacters();
 
