@@ -1,61 +1,107 @@
 (() => {
+    // Routes
+    // All Characters
+    // One Movie by ID
+    // https://swapi.info/api/people
+    // https://swapi.info/api/films
 
-// route 1 get characters 
-// https://swapi.info/api/people
+    const charBox = document.querySelector("#character-box");
+    const movieTemplate = document.querySelector("#movie-template");
+    const movieCon = document.querySelector("#movie-con");
+    const loader = document.querySelector("#loader");
 
-// route 2 get a particular movie
-// https://swapi.info/api/films/2
-
- // SWAPI Base URL
     const baseUrl = "https://swapi.info/api/";
 
-  //  const charBox = document.querySelector("#character-box");
-  //  const movieTemplate = document.querySelector("#movie-template");
-  //  const movieCon = document.querySelector("#movie-con");
-  //  const loader = document.querySelector("#loader");
-  //  function showLoading() { loader.classList.remove('hidden'); }
-  //  function hideLoading() { loader.classList.add('hidden'); }
+    function showLoading() {
+        loader.classList.remove("hidden");
+    }
+
+    function hideLoading() {
+        loader.classList.add("hidden");
+    }
 
     function getCharacters() {
+        showLoading();
 
         fetch(`${baseUrl}people`)
-            .then((res) => res.json())
-            .then((characters) => {
-                characters.forEach(character => {
-                    console.log(character.name);
-                    // randomize the number that is picked
-                    // figure out the length of the array then pick a number within that range
-                    console.log(character.films[0]);
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            hideLoading();
 
-                    // create a ul
-                    // create an li
-                    // create an a
-                    // add a data attribute to the anchor tag that contains a film
-                });
-            })
-            .then(()=> {
-                //attach an event listener to each link, calls a new function that makes the second AJAX call
-                //function name is getMovie()
-            })
-            .catch((error) => {
-                console.error(error)
-            })
+            const charList = Array.isArray(data) ? data : data.results;
+            const ul = document.createElement("ul");
+            const limit = 13;
+            const total = charList.length < limit ? charList.length : limit;
+
+            for (let i = 0; i < total; i++) {
+                const character = charList[i];
+                const li = document.createElement("li");
+                const a = document.createElement("a");
+
+                a.textContent = character.name;
+                a.href = "#";
+
+                let randomIndex = Math.floor(Math.random() * character.films.length);
+                if (randomIndex >= character.films.length) {
+                    randomIndex = character.films.length - 1;
+                }
+
+                a.dataset.film = character.films[randomIndex];
+
+                li.appendChild(a);
+                ul.appendChild(li);
+            }
+
+            charBox.appendChild(ul);
+        })
+        .then(function() {
+            const links = document.querySelectorAll("#character-box li a");
+            links.forEach(function(link) {
+                link.addEventListener("click", getMovie);
+            });
+        })
+        .catch(function(error) {
+            hideLoading();
+            console.log("Character error:", error);
+        });
     }
-            
-function getMovie() {
-    //need to extract data attribute either using the event object or this
-    fetch("https://swapi.info/api/films/1")
-    .then((res) => res.json())
-    .then((movie) => {
-        console.log(`img.src="images/poster${movie.episode_id}.jpg`);
-        console.log(movie.title);
-        console.log(movie.opening_crawl);
-    })
-    .catch((error) => {
-        console.error(error)
-    })
-}
 
-    getMovie();
+    function getMovie(event) {
+        event.preventDefault();
+        showLoading();
+
+        const filmUrl = event.currentTarget.dataset.film;
+        const movieUrl = filmUrl.startsWith("http") ? filmUrl : `${baseUrl}${filmUrl}`;
+
+        fetch(movieUrl)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(movie) {
+            hideLoading();
+
+            movieCon.innerHTML = "";
+
+            const clone = movieTemplate.content.cloneNode(true);
+            const title = clone.querySelector(".movie-title");
+            const crawl = clone.querySelector(".movie-crawl");
+            const poster = clone.querySelector(".movie-poster");
+
+            title.textContent = movie.title;
+            crawl.textContent = movie.opening_crawl;
+            poster.src = `images/poster${movie.episode_id}.jpg`;
+            poster.alt = `Poster for ${movie.title}`;
+            movieCon.appendChild(clone);
+        })
+
+        .catch(function(error) {
+            hideLoading();
+            console.log("Movie error:", error);
+        });
+    }
+
     getCharacters();
+
 })();

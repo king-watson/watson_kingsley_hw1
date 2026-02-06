@@ -3,7 +3,7 @@ html {
 }
 
 .main-header {
-    background-color: #000;
+    background-color: rgba(0, 0, 0, 0.8);
     padding-bottom: 0;
     border-bottom: 2px solid #FFE81F; 
 }
@@ -22,25 +22,12 @@ html {
 }
 
 body {
-    /* 1. Replace 'stars.jpg' with your actual image path */
     background-image: url('/images/starwars-backgroun.jpg'); 
-
-    /* 2. This keeps the image from repeating like a pattern */
     background-repeat: no-repeat;
-
-    /* 3. This ensures the image covers the entire screen */
     background-size: cover;
-
-    /* 4. This keeps the background fixed so it doesn't move when you scroll */
     background-attachment: fixed;
-
-    /* 5. Centers the image */
     background-position: center;
-
-    /* 6. Fallback color in case the image doesn't load */
-    background-color: #000; 
-
-    /* Optional: ensures text is readable on dark backgrounds */
+    background-color: black; 
     color: white;
 }
 
@@ -93,40 +80,70 @@ body {
     }
 }
 
-.movie-poster {
-    width: 100%;
-    max-width: 250px;
-    border: 2px solid #444;
+#movie-info-box {
+    margin-top: 65px;
 }
 
-.movie-crawl {
-    line-height: 1.6;
-    font-size: 1.1rem;
+#movie-con {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 50px;
+  color: #fff;
+}
+
+.placeholder-text {
+    padding-top: 25px;
+}
+
+.movie-card {
+  text-align: center;
 }
 
 .movie-title {
-    color: white;
+  color: #FFE81F;
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  text-transform: uppercase;
 }
 
-#movie-info-box {
-    color: #fff;
-    margin-top: 65px;
+.movie-crawl {
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #ddd;
 }
+
+.movie-body {
+  display: flex;
+  flex-direction: column;  
+  align-items: center;
+  gap: 15px;
+}
+
+.poster-con {
+  order: 2; 
+}
+
+.crawl-con {
+  order: 1; 
+}
+
+.movie-poster {
+  width: 200px;
+  height: auto;
+  border: 2px solid #FFE81F;
+  border-radius: 4px;
+  box-shadow: 0 0 15px rgba(255, 232, 31, 0.4);
+}
+
 
 .site-footer {
     padding: 40px 0;
     margin-top: 50px;
     text-align: center;
-    background-color: #000;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-top: 2px solid #FFE81F; 
 }
 
-.footer-line {
-    display: block;      /* Ensures it behaves like a block element */
-    border: none;        /* Remove default browser styling */
-    border-top: 2px solid yellow; /* Specifically set the thickness and color */
-    width: 100%;         /* Make sure it spans the container */
-    margin-bottom: 60px;      /* Add space above and below so it's visible */
-}
 
 .footer-content p {
     font-family: 'Open Sans', sans-serif;
@@ -138,3 +155,4 @@ body {
 .assignment-note {
     font-style: italic;
 }
+
